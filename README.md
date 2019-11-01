@@ -21,4 +21,4 @@ https://inclass.kaggle.com/danofer/compass
 
 propublica_data_for_fairml.csv
 
-Data contains variables used by the COMPAS algorithm in scoring defendants, along with their outcomes within 2 years of the decision, for over 10,000 criminal defendants in Broward County, Florida. 3 subsets of the data are provided, including a subset of only violent recividism (as opposed to, e.g. being reincarcerated for non violent offenses such as vagrancy or Marijuana).
+Data contains variables used by the COMPAS algorithm in scoring defendants, along with their outcomes within 2 years of the decision, for over 10,000 criminal defendants in Broward County, Florida. 
