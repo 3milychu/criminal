@@ -1,4 +1,4 @@
-# Criminal - IN PROGRESS
+# Criminal - Under development
 
 "Criminal" is an audiovisual composition that calls out how often the COMPAS algorithm correctly identifies reoffending criminals, and how often it premptively labels reoffenders based on race.
 
