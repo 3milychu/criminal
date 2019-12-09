@@ -18,20 +18,49 @@ d3.csv('data/propublica.csv')
 		pause_button = document.querySelector('#pause')
 		var myReq;
 		play_button.onclick=function(){
-			console.log('click')
+			clearOptions()
+			selectOption('#play')
+			continueAnimating = true;
 	        myReq = requestAnimationFrame(function(timestamp){ // call requestAnimationFrame again with parameters
 	        	timestamp = timestamp
 	            sonify(timestamp, data)
 	        })
 		}
 		pause_button.onclick=function(){
-			cancelAnimationFrame(myReq)
+			clearOptions()
+			selectOption('#pause')
+			continueAnimating = false;
 		}
 	})
 	.catch(function(error){
 
 	})
 
+function clearOptions() {
+	controls = document.querySelectorAll('.control')
+	controls.forEach(function(item){
+		item.style.backgroundColor='white'
+		item.style.color='#1d1d1d'
+		divs = item.querySelectorAll('div')
+		if(divs!=undefined){
+			divs.forEach(function(item){
+				item.style.backgroundColor="#1d1d1d"
+			})
+		}
+	})
+}
+
+function selectOption(item){
+	item = document.querySelector(item)
+	item.style.backgroundColor='#1d1d1d'
+	item.style.color='white'
+	divs = item.querySelectorAll('div')
+	if(divs!=undefined){
+		divs.forEach(function(item){
+			item.style.backgroundColor="white"
+		})
+	}
+}
 
 function playVerdict(data, counter){
 
@@ -138,8 +167,10 @@ function playFemale(data,counter){
 		female.play()
 	}
 }
-var fps = 15
+let fps = 30
+
 function sonify(timestamp, data){
+	if(continueAnimating){
     setTimeout(function(){ //throttle requestAnimationFrame to 20fps
 		if(counter<6172){
 			counter++
@@ -159,7 +190,9 @@ function sonify(timestamp, data){
         requestAnimationFrame(function(timestamp){ 
             sonify(timestamp, data)
         })
-        }, 2000/fps)
+        }, 10000/fps)
+	}
+
 }
 
 function animatethis(targetElement, speed) {

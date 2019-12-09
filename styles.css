@@ -35,7 +35,7 @@ nav h1 {
     padding: 1em 2em;
     text-align: center;
     opacity: 0.8;
-    transition: 0.5s
+    transition: 0.25s
 }
 .control:hover {
 	background-color:#1d1d1d;
