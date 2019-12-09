@@ -8,15 +8,24 @@ var what = new Audio('audio/what.mp3')
 	kewu = new Audio('audio/kewu.mp3')
 	criminal = new Audio('audio/criminal.mp3')
 
+let counter = -1;
+
 d3.csv('data/propublica.csv')
 	.then(function(data){
 		console.log(data)
 		drawPeople(data)
 		play_button = document.querySelector('#play')
+		pause_button = document.querySelector('#pause')
+		var myReq;
 		play_button.onclick=function(){
 			console.log('click')
-			play_button.style.display="none";
-			sonify(data);
+	        myReq = requestAnimationFrame(function(timestamp){ // call requestAnimationFrame again with parameters
+	        	timestamp = timestamp
+	            sonify(timestamp, data)
+	        })
+		}
+		pause_button.onclick=function(){
+			cancelAnimationFrame(myReq)
 		}
 	})
 	.catch(function(error){
@@ -129,10 +138,9 @@ function playFemale(data,counter){
 		female.play()
 	}
 }
-
-function sonify(data){
-	var counter = -1;
-	setInterval(function() {
+var fps = 15
+function sonify(timestamp, data){
+    setTimeout(function(){ //throttle requestAnimationFrame to 20fps
 		if(counter<6172){
 			counter++
 			container = document.querySelector('#track1')
@@ -147,14 +155,11 @@ function sonify(data){
 			playPriors(data, counter)
 			playFelonies(data,counter)
 			playFemale(data,counter)
-			// console.log(data[counter])
-			// setTimeout(function() {
-			// 	animatethis($('#track1'), 10000);
-			// },1500)
 			}
-
-
-	},808)
+        requestAnimationFrame(function(timestamp){ 
+            sonify(timestamp, data)
+        })
+        }, 2000/fps)
 }
 
 function animatethis(targetElement, speed) {
